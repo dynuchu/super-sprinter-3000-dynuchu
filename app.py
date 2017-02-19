@@ -1,5 +1,4 @@
 # imports
-import os
 from peewee import *
 from flask import Flask, g, flash, render_template, \
     request, redirect, url_for
@@ -45,21 +44,23 @@ def adding_page():
 
 @app.route('/story/<int:story_id>', methods=['GET', 'POST'])
 def editor_page(story_id):
-    story = UserStoryManager.select().where(UserStoryManager.id == story_id).get()
     if request.method == 'POST':
-        modify = UserStoryManager.update(story_title=request.form['story_title'],
-                                         user_story=request.form['user_story'],
-                                         acceptance_criteria=request.form['acceptance_criteria'],
-                                         business_value=request.form['business_value'],
-                                         estimation=request.form['estimation'], status=request.form['status']).where(
+        modify = UserStoryManager.update(story_title=request.form['story_title_edit'],
+                                         user_story=request.form['user_story_edit'],
+                                         acceptance_criteria=request.form['acceptance_criteria_edit'],
+                                         business_value=request.form['business_value_edit'],
+                                         estimation=request.form['estimation_edit'], status=request.form['status_edit']).where(
             UserStoryManager.id == story_id)
         modify.execute()
         return redirect(url_for('list_page'))
-    return render_template("form.html", story=story)
+
+    elif request.method == 'GET':
+        story = UserStoryManager.select().where(UserStoryManager.id == story_id).get()
+        return render_template("form.html", story=story)
 
 
-@app.route("/")
-@app.route("/list")
+@app.route("/", methods=['GET', 'POST'])
+@app.route("/list", methods=['GET', 'POST'])
 def list_page():
     user_stories = UserStoryManager.select()
     return render_template("list.html", user_stories=user_stories)
