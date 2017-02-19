@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block title %}Super Sprinter 3000 - Add new{% endblock%}
+
+{% block content %}
+{% if add %}
+<h1>User Story Manager - Add new Story</h1>
+
+<form method="post" action="/story">
+<label>Story title</label>
+<p><input id="story_title" name="story_title" size=60></p>
+
+<label>User Story</label>
+<p><input style="height: 60px;" id="user_story" name="user_story" size=60></p>
+
+<label>Acceptance Criteria</label>
+<p><input style="height: 80px;"  id="acceptance_criteria" name="acceptance_criteria" size=60></p>
+
+<label>Business Value</label>
+<p><input type="number" id="business_value" name="business_value" value="100" min="100" max="1500" step="100"></p>
+
+<label>Estimation (h)</label>
+<p><input type="number" id="estimation" name="estimation" value="0.5" min="0.5" max="40" step="0.5"></p>
+
+<label>Status</label>
+<p></p><select id="status" name="status">
+  <option value="planning">Planning</option>
+  <option value="to_do">To Do</option>
+  <option value="in_progress">In progress</option>
+  <option value="review">Review</option>
+  <option value="done">Done</option>
+</select>
+</p>
+<p>
+<input type="submit" name="create" value="Create">
+</p>
+</form>
+{% endif %}
+
+{% if story %}
+<h1>User Story Manager - Edit Story</h1>
+<form method="post" action="{{ url_for('editor_page') }}">
+<label>Story title</label>
+<p><input id="story_title_edit" name="story_title_edit" size=60 value="{{ story.title }}"></p>
+
+<label>User Story</label>
+<p><input style="height: 60px;" id="user_story_edit" name="user_story_edit" size=60 value="{{story.user_story}}"></p>
+
+<label>Acceptance Criteria</label>
+<p><input style="height: 80px;"  id="acceptance_criteria_edit" name="acceptance_criteria_edit" value="{{story.acceptance_criteria}}"size=60></p>
+
+<label>Business Value</label>
+<p><input type="number" id="business_value_edit" name="business_value_edit" value="{{story.business_value}}" min="100" max="1500" step="100"></p>
+
+<label>Estimation (h)</label>
+<p><input type="number" id="estimation_edit" name="estimation_edit" value="{{story.value}}" min="0.5" max="40" step="0.5"></p>
+
+<label>Status</label>
+<p></p><select id="status_edit" name="status_edit">
+  <option value="planning">Planning</option>
+  <option value="to_do">To Do</option>
+  <option value="in_progress">In progress</option>
+  <option value="review">Review</option>
+  <option value="done">Done</option>
+</select>
+</p>
+<p>
+<input type="submit" name="update" value="Update">
+</p>
+</form>
+{% endif %}
+{% endblock %}

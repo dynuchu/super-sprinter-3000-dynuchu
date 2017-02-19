@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}Super Sprinter 3000{% endblock%}
+
+{% block content %}
+<h1>User Story Manager</h1>
+<form method="post" action="{{ url_for('list_page') }}">
+<p>
+    <input type="submit" name="add_new_user_story" value="Add new User Story" formaction="/story">
+</p>
+<table border="1">
+
+    <tr>
+        <td>ID</td>
+        <td>Story Title</td>
+        <td>User Story</td>
+        <td>Acceptance Criteria</td>
+        <td>Business Value</td>
+        <td>Estimation</td>
+        <td>Status</td>
+        <td>Modify</td>
+        <td>Delete</td>
+
+    </tr>
+    {% for story in user_stories %}
+    <tr>
+        <td>{{ story.id }}</td>
+        <td>{{ story.story_title }}</td>
+        <td>{{ story.user_story }}</td>
+        <td>{{ story.acceptance_criteria }}</td>
+        <td>{{ story.business_value }}</td>
+        <td>{{ story.estimation }}</td>
+        <td>{{ story.status }}</td>
+        <td>modify</td>
+        <td>delete</td>
+    </tr>
+    {% else %}
+    <tr> Unbelievable.  No user stories here so far</tr>
+    {% endfor %}
+
+</table>
+
+</form>
+
+{% endblock %}
