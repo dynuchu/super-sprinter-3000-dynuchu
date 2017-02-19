@@ -4,9 +4,10 @@
 
 {% block content %}
 <h1>User Story Manager</h1>
+
 <form method="post" action="{{ url_for('list_page') }}">
 <p>
-    <input type="submit" name="add_new_user_story" value="Add new User Story" formaction="/story">
+    <button type="submit" name="add_new_user_story" formaction="/story" formmethod="get">Add new User Story</button>
 </p>
 <table border="1">
 
@@ -31,8 +32,8 @@
         <td>{{ story.business_value }}</td>
         <td>{{ story.estimation }}</td>
         <td>{{ story.status }}</td>
-        <td><i class="material-icons">mode_edit</i></td>
-        <td><i class="material-icons">delete</i></td>
+        <td><a class="material-icons" href="{{ url_for('editor_page', story_id=story.id) }}">mode_edit</a></td>
+        <td><a class="material-icons" href="{{ url_for('delete', story_id=story.id) }}">delete</a></td>
     </tr>
     {% else %}
     <tr> Unbelievable.  No user stories here so far</tr>
