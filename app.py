@@ -54,9 +54,8 @@ def editor_page(story_id):
         modify.execute()
         return redirect(url_for('list_page'))
 
-    elif request.method == 'GET':
-        story = UserStoryManager.select().where(UserStoryManager.id == story_id).get()
-        return render_template("form.html", story=story)
+    story = UserStoryManager.select().where(UserStoryManager.id == story_id).get()
+    return render_template("form.html", story=story)
 
 
 @app.route("/", methods=['GET', 'POST'])
