@@ -61,7 +61,7 @@ def editor_page(story_id):
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/list", methods=['GET', 'POST'])
 def list_page():
-    user_stories = UserStoryManager.select()
+    user_stories = UserStoryManager.select().order_by(UserStoryManager.id.asc())
     return render_template("list.html", user_stories=user_stories)
 
 
