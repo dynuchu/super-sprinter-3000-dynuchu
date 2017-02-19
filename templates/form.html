@@ -39,7 +39,7 @@
 
 {% if story %}
 <h1>User Story Manager - Edit Story</h1>
-<form method="get" action="{{ url_for('editor_page', story_id=story.id) }}">
+<form method="post" action="{{ url_for('editor_page', story_id=story.id) }}">
 <label>Story title</label>
 <p><input id="story_title_edit" name="story_title_edit" size=60 value="{{ story.story_title }}"></p>
 
@@ -53,7 +53,7 @@
 <p><input type="number" id="business_value_edit" name="business_value_edit" value="{{story.business_value}}" min="100" max="1500" step="100"></p>
 
 <label>Estimation (h)</label>
-<p><input type="number" id="estimation_edit" name="estimation_edit" value="{{story.value}}" min="0.5" max="40" step="0.5"></p>
+<p><input type="number" id="estimation_edit" name="estimation_edit" value="{{story.estimation}}" min="0.5" max="40" step="0.5"></p>
 
 <label>Status</label>
 <p></p><select id="status_edit" name="status_edit">
@@ -65,7 +65,7 @@
 </select>
 </p>
 <p>
-<input type="submit" name="update" value="Update" formmethod="post">
+<input type="submit" name="update" value="Update">
 </p>
 </form>
 {% endif %}

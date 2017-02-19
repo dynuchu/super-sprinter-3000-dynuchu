@@ -8,6 +8,7 @@ from models import UserStoryManager
 
 app = Flask(__name__)
 
+
 def init_db():
     ConnectDatabase.db.connect()
     ConnectDatabase.db.create_tables([UserStoryManager], safe=True)
@@ -39,18 +40,19 @@ def adding_page():
         new_story.save()
         return redirect(url_for('list_page'))
     add = "add"
-    return render_template('form.html',  add=add)
+    return render_template('form.html', add=add)
 
 
-@app.route('/story/<int:story_id>',  methods=['GET', 'POST'])
+@app.route('/story/<int:story_id>', methods=['GET', 'POST'])
 def editor_page(story_id):
     story = UserStoryManager.select().where(UserStoryManager.id == story_id).get()
     if request.method == 'POST':
         modify = UserStoryManager.update(story_title=request.form['story_title'],
-                                            user_story=request.form['user_story'],
-                                            acceptance_criteria=request.form['acceptance_criteria'],
-                                            business_value=request.form['business_value'],
-                                            estimation=request.form['estimation'], status=request.form['status']).where(UserStoryManager.id == story_id)
+                                         user_story=request.form['user_story'],
+                                         acceptance_criteria=request.form['acceptance_criteria'],
+                                         business_value=request.form['business_value'],
+                                         estimation=request.form['estimation'], status=request.form['status']).where(
+            UserStoryManager.id == story_id)
         modify.execute()
         return redirect(url_for('list_page'))
     return render_template("form.html", story=story)
@@ -62,14 +64,12 @@ def list_page():
     user_stories = UserStoryManager.select()
     return render_template("list.html", user_stories=user_stories)
 
+
 @app.route("/delete/<int:story_id>")
 def delete(story_id):
     story = UserStoryManager.select().where(UserStoryManager.id == story_id).get()
     UserStoryManager.delete_instance(story)
     return redirect("list")
-
-
-
 
 
 init_db()
