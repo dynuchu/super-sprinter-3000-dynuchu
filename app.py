@@ -1,7 +1,7 @@
 # imports
 import os
 from peewee import *
-from flask import Flask, g, flash, render_template, render_template, \
+from flask import Flask, g, flash, render_template, \
     request, redirect, url_for
 from connectdatabase import ConnectDatabase
 from models import UserStoryManager
@@ -43,7 +43,7 @@ def adding_page():
     return render_template('form.html',  add=add)
 
 
-@app.route('/story/<story_id>', methods=['GET', 'POST'])
+@app.route('/story/<int:story_id>')
 def editor_page(story_id):
     story = UserStoryManager.select().where(UserStoryManager.id == story_id).get()
     return render_template("form.html", story=story)

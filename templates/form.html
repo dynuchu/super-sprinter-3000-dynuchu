@@ -39,7 +39,7 @@
 
 {% if story %}
 <h1>User Story Manager - Edit Story</h1>
-<form method="post" action="{{ url_for('editor_page') }}">
+<form method="post" action="{{ url_for('editor_page', story_id=story.id) }}">
 <label>Story title</label>
 <p><input id="story_title_edit" name="story_title_edit" size=60 value="{{ story.title }}"></p>
 
